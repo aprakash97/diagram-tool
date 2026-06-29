@@ -8,7 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "agent": "node scripts/test-agent.mjs"
+    "agent": "node scripts/test-agent.mjs",
+    "eval": "dotenv -e .env -- braintrust eval evals/diagram.eval.ts"
   },
   "dependencies": {
     "@ai-sdk/openai": "^3.0.73",
@@ -24,14 +25,18 @@
     "@cloudflare/vite-plugin": "^1.41.0",
     "@cloudflare/workers-types": "^4.20260617.1",
     "@eslint/js": "^10.0.1",
-    "@types/node": "^24.12.3",
+    "@types/node": "^24.13.2",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.1",
+    "braintrust": "^3.20.0",
+    "dotenv": "^17.4.2",
+    "dotenv-cli": "^11.0.0",
     "eslint": "^10.3.0",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.2",
     "globals": "^17.6.0",
+    "tsx": "^4.22.4",
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.59.2",
     "vite": "^8.0.12"
