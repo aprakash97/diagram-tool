@@ -1,0 +1,163 @@
+[
+  {
+    "testCaseId": "create-simple-01",
+    "input": "Draw a single rectangle labeled Hello",
+    "response": "Sure — I can create or modify Excalidraw diagrams for you.\n\nTell me what you want, for example:\n- a flowchart\n- an org chart\n- a system architecture diagram\n- a process/timeline\n- a decision tree\n\nIf you want, you can describe it like:\n- **Title**\n- **Boxes/nodes**\n- **Connections/arrows**\n- **Layout** (left-to-right or top-to-bottom)\n\nExample:\n“Create a left-to-right flowchart: Start → Validate input → If valid, save data; if invalid, show error.”\n\n",
+    "elements": [],
+    "durationMs": 5360
+  },
+  {
+    "testCaseId": "create-simple-02",
+    "input": "Draw a circle and a square next to each other",
+    "response": "Ready — tell me what diagram you want to create or modify, and I’ll generate the Excalidraw elements for it.",
+    "elements": [],
+    "durationMs": 1548
+  },
+  {
+    "testCaseId": "create-simple-03",
+    "input": "Draw a simple flowchart with Start, Process, and End boxes connected by arrows",
+    "response": "Sure — I can help create or modify an Excalidraw diagram.\n\nWhat would you like to draw?  \nIf you already have a concept, send me:\n- the diagram type or topic\n- the boxes/shapes you want\n- the text labels\n- how they should connect\n\nIf you want, I can also propose a clean layout for you.",
+    "elements": [],
+    "durationMs": 1844
+  },
+  {
+    "testCaseId": "create-simple-04",
+    "input": "Draw a diamond labeled 'Decision' with two arrows coming out of it labeled 'Yes' and 'No'",
+    "response": "What diagram would you like me to create or modify?",
+    "elements": [],
+    "durationMs": 1119
+  },
+  {
+    "testCaseId": "create-simple-05",
+    "input": "Draw three rectangles in a vertical column labeled Top, Middle, Bottom",
+    "response": "Got it — I can create or modify Excalidraw-style diagrams for you.\n\nTell me what diagram you want, and I’ll return the full canvas elements. If you want, include:\n- the diagram type or topic\n- the boxes/shapes you need\n- labels/text\n- how elements should connect\n- preferred layout: left-to-right or top-to-bottom\n\nExample: “Create a flowchart for user sign-up with 5 steps, left to right.”",
+    "elements": [],
+    "durationMs": 2046
+  },
+  {
+    "testCaseId": "create-medium-01",
+    "input": "Draw a login flow: user enters credentials, system validates, if valid go to dashboard, if invalid show error",
+    "response": "Got it — I can create or modify Excalidraw diagrams for you.\n\nTell me what you want diagrammed, and I’ll return a clean layout with labeled shapes and arrows.",
+    "elements": [],
+    "durationMs": 1326
+  },
+  {
+    "testCaseId": "create-medium-02",
+    "input": "Draw an entity relationship diagram for a blog: Users have many Posts, Posts have many Comments",
+    "response": "Sure — tell me what diagram you want to create or modify, and I’ll generate the Excalidraw elements for it.",
+    "elements": [],
+    "durationMs": 3101
+  },
+  {
+    "testCaseId": "create-medium-03",
+    "input": "Draw a simple web architecture: Browser sends requests to a Load Balancer, which forwards to two Web Servers, which read from a Database",
+    "response": "Sure — tell me what diagram you want to create or modify, and I’ll generate the Excalidraw elements for it.",
+    "elements": [],
+    "durationMs": 1197
+  },
+  {
+    "testCaseId": "create-medium-04",
+    "input": "Draw a sequence diagram: Client calls Server, Server calls Database, Database returns data, Server returns response to Client",
+    "response": "Sure — tell me what diagram you want to create or modify, and I’ll generate the Excalidraw elements for it.",
+    "elements": [],
+    "durationMs": 1332
+  },
+  {
+    "testCaseId": "create-medium-05",
+    "input": "Draw a state machine for a traffic light with Red, Yellow, Green states transitioning in order",
+    "response": "Sure — what diagram would you like me to create or modify?\n\nIf you want, you can describe:\n- the topic/process/system\n- the boxes or nodes you need\n- the relationships/arrows between them\n- preferred layout: left-to-right or top-to-bottom\n\nI’ll generate the Excalidraw elements for you.",
+    "elements": [],
+    "durationMs": 1842
+  },
+  {
+    "testCaseId": "create-complex-01",
+    "input": "Draw an org chart for a company: CEO at top, 3 VPs reporting to CEO (Engineering, Sales, Marketing), each VP has 3 directors under them",
+    "response": "Sure — tell me what diagram you want to create or modify, and I’ll generate the Excalidraw elements for it.",
+    "elements": [],
+    "durationMs": 1528
+  },
+  {
+    "testCaseId": "create-complex-02",
+    "input": "Draw a microservices architecture: API Gateway receives requests, routes to Auth Service, User Service, Order Service, and Payment Service. Each service has its own database. Order Service also calls Payment Service.",
+    "response": "Sure — tell me what diagram you want to create or modify, and I’ll generate the Excalidraw elements for it.",
+    "elements": [],
+    "durationMs": 1242
+  },
+  {
+    "testCaseId": "create-complex-03",
+    "input": "Draw a complex e-commerce checkout flow with 8 steps: Cart Review, Shipping Address, Shipping Method, Payment, Order Review, Place Order, Confirmation, Email Receipt. Include error paths if payment fails.",
+    "response": "Absolutely — I can create or modify Excalidraw diagrams for you.\n\nTell me what you want, for example:\n- a flowchart\n- a system architecture diagram\n- a timeline\n- a decision tree\n- a UML-style diagram\n\nIf you want, you can just describe it in plain English like:\n“Make a left-to-right flowchart for user login with steps: Enter credentials → Validate → Success/Fail.”\n\nI’ll generate the diagram elements accordingly.",
+    "elements": [],
+    "durationMs": 1725
+  },
+  {
+    "testCaseId": "create-complex-04",
+    "input": "Draw a network topology with 1 router connected to 2 switches, where each switch is connected to 4 computers and 1 printer. Show the router connecting to the internet.",
+    "response": "Sure — tell me what diagram you want to create or modify, and I’ll generate the Excalidraw elements for it.",
+    "elements": [],
+    "durationMs": 1292
+  },
+  {
+    "testCaseId": "modify-01",
+    "input": "make the login box red",
+    "response": "Sure — tell me what diagram you want to create or modify, and I’ll generate the Excalidraw elements for it.",
+    "elements": [],
+    "durationMs": 1401
+  },
+  {
+    "testCaseId": "modify-02",
+    "input": "now connect them with an arrow going from login to database",
+    "response": "Sure — tell me what diagram you want to create or modify, and I’ll generate the Excalidraw elements for it.",
+    "elements": [],
+    "durationMs": 1133
+  },
+  {
+    "testCaseId": "modify-03",
+    "input": "rename the Process box to Validate",
+    "response": "Sure — tell me what diagram you want to create or what existing diagram you want to modify, and I’ll generate the Excalidraw elements for it.",
+    "elements": [],
+    "durationMs": 1292
+  },
+  {
+    "testCaseId": "modify-04",
+    "input": "add a Cache box between the API and the Database, and route the API through the cache",
+    "response": "Sure — what diagram would you like me to create or modify?",
+    "elements": [],
+    "durationMs": 1060
+  },
+  {
+    "testCaseId": "domain-01",
+    "input": "Draw the OAuth 2.0 authorization code flow",
+    "response": "Sure — tell me what diagram you want to create or modify, and I’ll generate the Excalidraw elements for it.",
+    "elements": [],
+    "durationMs": 1101
+  },
+  {
+    "testCaseId": "domain-02",
+    "input": "Draw the AWS three-tier web application architecture",
+    "response": "Ready—tell me what diagram you want to create or modify, and I’ll generate the Excalidraw elements for it.",
+    "elements": [],
+    "durationMs": 1211
+  },
+  {
+    "testCaseId": "domain-03",
+    "input": "Draw the relationship between a Kubernetes Pod, Service, and Deployment",
+    "response": "Sure — tell me what diagram you want to create or modify, and I’ll generate the Excalidraw elements for it.",
+    "elements": [],
+    "durationMs": 1123
+  },
+  {
+    "testCaseId": "edge-01",
+    "input": "draw something",
+    "response": "Sure — what diagram would you like me to create or modify?",
+    "elements": [],
+    "durationMs": 1025
+  },
+  {
+    "testCaseId": "edge-02",
+    "input": "Draw a square that is also a circle",
+    "response": "Sure — tell me what diagram you want to create or modify, and I’ll build it for the Excalidraw canvas.",
+    "elements": [],
+    "durationMs": 1328
+  }
+]
