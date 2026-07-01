@@ -1,16 +1,42 @@
-import { generateText, streamText, stepCountIs } from "ai";
+import {
+  generateText,
+  streamText,
+  stepCountIs,
+  type ModelMessage,
+  type LanguageModel,
+} from "ai";
 import { tools } from "./tools";
 import { SYSTEM_PROMPT } from "./system-prompt";
+import { serializeCanvasState } from "./context/canvas-state";
+
+interface AgentArgs {
+  model: LanguageModel;
+  messages: ModelMessage[];
+  seedCanvas?: unknown[];
+  system?: string;
+  canvasState?: any[];
+  maxSteps?: number;
+  env?: {
+    TAVILY_API_KEY?: string;
+    UPSTASH_VECTOR_REST_URL?: string;
+    UPSTASH_VECTOR_REST_TOKEN?: string;
+  };
+}
+
+const buildSystemPrompt = (base: string, canvasState: any[]) => {
+  return `${base}\n\n# Current Canvas state \n\n${serializeCanvasState(canvasState ?? [])}`;
+};
 
 export function streamAgent({
   model,
   messages,
   system = SYSTEM_PROMPT,
   maxSteps = 5,
-}) {
+  canvasState,
+}: AgentArgs) {
   return streamText({
     model,
-    system,
+    system: buildSystemPrompt(system, canvasState ?? []),
     messages,
     tools,
     stopWhen: stepCountIs(maxSteps),

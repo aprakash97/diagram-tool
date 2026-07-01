@@ -6,6 +6,9 @@ import { createOpenAI } from "@ai-sdk/openai";
 import { runAgent } from "../src/agent-core";
 import { buildMessages } from "./buildMessage";
 import { schemaScorer } from "./scorers/schema";
+import { structureScorer } from "./scorers/structure";
+import { preservationScorer } from "./scorers/preservation";
+import { labelKeywordScorer } from "./scorers/labelKeyword";
 
 config({
   path: ".env",
@@ -38,5 +41,10 @@ Eval<any, any, any>("Diagram Agent", {
       elements: result.elements,
     };
   },
-  scores: [schemaScorer],
+  scores: [
+    schemaScorer,
+    structureScorer,
+    preservationScorer,
+    labelKeywordScorer,
+  ],
 });
