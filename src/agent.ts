@@ -7,16 +7,20 @@ interface ENV {
 }
 import { streamAgent } from "./agent-core";
 
-type CanvasStatePart = {
-  type: "data-canvas-state";
-  data: {
-    elements: any[];
-  };
+// type CanvasStatePart = {
+//   type: "data-canvas-state";
+//   data: {
+//     elements: any[];
+//   };
+// };
+
+const isCanvasStatePart = (part: any): part is { type: "data-canvas-state"; data: { elements: any[] } } => {
+  return part?.type === "data-canvas-state";
 };
 
 const extractCanvasState = (messages: UIMessage[]) => {
   const last = messages.at(-1);
-  const part = last?.parts.find((p) => p.type === "data-canvas-state");
+  const part = last?.parts.find(isCanvasStatePart);
   return part?.data.elements ?? [];
 };
 
