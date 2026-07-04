@@ -9,6 +9,9 @@ import { schemaScorer } from "./scorers/schema";
 import { structureScorer } from "./scorers/structure";
 import { preservationScorer } from "./scorers/preservation";
 import { labelKeywordScorer } from "./scorers/labelKeyword";
+import { boundArrowsScorer } from "./scorers/boundArrows";
+import { boundLabelsScorer } from "./scorers/boundLabels";
+import { connectivityScorer } from "./scorers/connectivity";
 
 config({
   path: ".env",
@@ -35,6 +38,7 @@ Eval<any, any, any>("Diagram Agent", {
     const result = await runAgent({
       model: openai("gpt-5.4-mini"),
       messages: buildMessages(tc),
+      env: { TAVILY_API_KEY: process.env.TAVILY_API_KEY },
     });
     return {
       text: result.text,
@@ -46,5 +50,8 @@ Eval<any, any, any>("Diagram Agent", {
     structureScorer,
     preservationScorer,
     labelKeywordScorer,
+    boundArrowsScorer,
+    boundLabelsScorer,
+    connectivityScorer,
   ],
 });
