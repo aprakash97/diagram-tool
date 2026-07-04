@@ -10,21 +10,139 @@ import {
   convertToExcalidrawElements,
   newElementWith,
 } from "@excalidraw/excalidraw";
+import { serializeCanvasState } from "./context/canvas-state";
 
 const sessionId = crypto.randomUUID();
+
+function stripNulls(value: unknown): unknown {
+  if (Array.isArray(value)) return value.map(stripNulls);
+  if (value && typeof value === "object") {
+    const out: Record<string, unknown> = {};
+    for (const [k, v] of Object.entries(value as Record<string, unknown>)) {
+      if (v !== null) out[k] = stripNulls(v);
+    }
+    return out;
+  }
+  return value;
+}
 
 export default function App() {
   const [excalidrawAPI, setExcalidrawAPI] =
     useState<ExcalidrawImperativeAPI | null>(null);
   const [theme, setTheme] = useState<"light" | "dark">("light");
 
-  const appliedToolCalls = useRef(new Set());
+  // const appliedToolCalls = useRef(new Set());
   const handleApiReady = useCallback((api: ExcalidrawImperativeAPI) => {
     setExcalidrawAPI(api);
   }, []);
 
+  const excalidrawAPIRef = useRef<ExcalidrawImperativeAPI | null>(null);
+  useEffect(() => {
+    excalidrawAPIRef.current = excalidrawAPI;
+  }, [excalidrawAPI]);
   const agent = useAgent({ agent: "design-agent", name: sessionId });
-  const { messages, sendMessage, status } = useAgentChat({ agent });
+  const { messages, sendMessage, status } = useAgentChat({
+    agent,
+    onToolCall: async ({ toolCall, addToolOutput }) => {
+      const api = excalidrawAPIRef.current;
+      if (!api) {
+        addToolOutput({
+          toolCallId: toolCall.toolCallId,
+          output: {
+            error:
+              "canvas not ready, Let the user know to try again in few seconds.",
+          },
+        });
+        return;
+      }
+
+      if (toolCall.toolName === "queryCanvas") {
+        addToolOutput({
+          toolCallId: toolCall.toolCallId,
+          output: {
+            summary: serializeCanvasState(api.getSceneElements() as any),
+          },
+        });
+        return;
+      }
+
+      if (toolCall.toolName === "addElements") {
+        const { elements } = toolCall.input as any;
+
+        console.log(elements);
+        const cleaned = elements.map(stripNulls);
+
+        const newOnes = convertToExcalidrawElements(cleaned, {
+          regenerateIds: false,
+        });
+
+        const next = [...api.getSceneElements(), ...newOnes];
+        api.updateScene({
+          elements: next,
+          captureUpdate: CaptureUpdateAction.IMMEDIATELY,
+        });
+        api.scrollToContent(next, { fitToContent: true });
+        addToolOutput({
+          toolCallId: toolCall.toolCallId,
+          output: {
+            added: newOnes.length,
+          },
+        });
+        return;
+      }
+
+      if (toolCall.toolName === "updateElements") {
+        // const { updates } = toolCall.input as any;
+        // const byId = new Map((updates: any) => [
+        //   updates.id,
+        //   stripNulls(updates.fields),
+        // ]);
+
+        const { updates } = toolCall.input as {
+          updates: {
+            id: string;
+            fields: Record<string, unknown>;
+          }[];
+        };
+
+        const byId = new Map(
+          updates.map(({ id, fields }) => [id, stripNulls(fields)]),
+        );
+
+        const next = api.getSceneElements().map((el) => {
+          const fields = byId.get(el.id);
+          return fields && Object.keys(fields).length > 0
+            ? newElementWith(el, fields)
+            : el;
+        });
+
+        api.updateScene({
+          elements: next,
+          captureUpdate: CaptureUpdateAction.IMMEDIATELY,
+        });
+
+        return;
+      }
+
+      if (toolCall.toolName === "removeElements") {
+        const { ids } = toolCall.input as any;
+        const remove = new Set(ids);
+        const next = api.getSceneElements().filter((el) => !remove.has(el.id));
+        api.updateScene({
+          elements: next,
+          captureUpdate: CaptureUpdateAction.IMMEDIATELY,
+        });
+        addToolOutput({
+          toolCallId: toolCall.toolCallId,
+          output: {
+            removed: remove.size,
+          },
+        });
+
+        return;
+      }
+    },
+  });
 
   const sendWithCanvas = useMemo(
     () =>
@@ -50,58 +168,6 @@ export default function App() {
       },
     [sendMessage, excalidrawAPI],
   );
-
-  useEffect(() => {
-    if (!excalidrawAPI) return;
-
-    for (const message of messages) {
-      if (message.role !== "assistant") continue;
-      for (const part of message.parts ?? []) {
-        if (
-          part.type !== "tool-generateDiagram" &&
-          part.type !== "tool-modifyDiagram"
-        ) {
-          continue;
-        }
-        if (part.state !== "output-available") continue;
-        if (appliedToolCalls.current.has(part.toolCallId)) continue;
-
-        if (part.type === "tool-generateDiagram") {
-          appliedToolCalls.current.add(part.toolCallId);
-          const output = part.output as { elements?: any };
-          const skeletonElements = output.elements;
-
-          if (Array.isArray(skeletonElements) && skeletonElements.length > 0) {
-            const elements = convertToExcalidrawElements(skeletonElements, {
-              regenerateIds: false,
-            });
-            excalidrawAPI.updateScene({ elements });
-            excalidrawAPI.scrollToContent(elements, { fitToContent: true });
-          }
-        } else if (part.type === "tool-modifyDiagram") {
-          appliedToolCalls.current.add(part.toolCallId);
-          const output = part.output as {
-            elementId?: string;
-            updates?: Record<string, any>;
-          };
-
-          if (output.elementId && output.updates) {
-            const current = excalidrawAPI.getSceneElements();
-            const next = current.map((el) =>
-              el.id === output.elementId
-                ? newElementWith(el, output.updates as any)
-                : el,
-            );
-
-            excalidrawAPI.updateScene({
-              elements: next,
-              captureUpdate: CaptureUpdateAction.IMMEDIATELY,
-            });
-          }
-        }
-      }
-    }
-  }, [messages, excalidrawAPI]);
 
   return (
     <div className={`app ${theme}`}>

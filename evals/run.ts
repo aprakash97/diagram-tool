@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 import { generateText, stepCountIs } from "ai";
 import { createOpenAI } from "@ai-sdk/openai";
 
-import { tools } from "../src/tools";
+import { buildTools } from "../src/tools";
 import { SYSTEM_PROMPT } from "../src/system-prompt";
 import type { TestCase, EvalResult } from "./types";
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -18,7 +18,7 @@ async function runTestCase(testCase: TestCase): Promise<EvalResult> {
     const result = await generateText({
       model: openai("gpt-5.4-mini"),
       prompt: SYSTEM_PROMPT,
-      tools: tools,
+      tools: buildTools(),
       stopWhen: stepCountIs(5),
     });
 

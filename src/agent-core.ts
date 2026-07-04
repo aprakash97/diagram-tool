@@ -5,9 +5,9 @@ import {
   type ModelMessage,
   type LanguageModel,
 } from "ai";
-import { tools } from "./tools";
 import { SYSTEM_PROMPT } from "./system-prompt";
 import { serializeCanvasState } from "./context/canvas-state";
+import { buildTools } from "./tools";
 
 interface AgentArgs {
   model: LanguageModel;
@@ -33,12 +33,13 @@ export function streamAgent({
   system = SYSTEM_PROMPT,
   maxSteps = 5,
   canvasState,
+  env
 }: AgentArgs) {
   return streamText({
     model,
     system: buildSystemPrompt(system, canvasState ?? []),
     messages,
-    tools,
+    tools: buildTools(env),
     stopWhen: stepCountIs(maxSteps),
   });
 }
@@ -48,12 +49,13 @@ export async function runAgent({
   messages,
   system = SYSTEM_PROMPT,
   maxSteps = 5,
+  env,
 }) {
   const result = await generateText({
     model,
     system,
     messages,
-    tools,
+    tools: buildTools(env),
     stopWhen: stepCountIs(maxSteps),
   });
 

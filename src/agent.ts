@@ -1,9 +1,9 @@
 import { AIChatAgent } from "@cloudflare/ai-chat";
 import { convertToModelMessages, UIMessage } from "ai";
 import { createOpenAI } from "@ai-sdk/openai";
-import { SYSTEM_PROMPT } from "./system-prompt";
 interface ENV {
   OPEN_AI_KEY: string;
+  TAVILY_API_KEY: string;
 }
 import { streamAgent } from "./agent-core";
 
@@ -28,6 +28,7 @@ export class DesignAgent extends AIChatAgent<ENV> {
       model: openai("gpt-5.4-mini"),
       messages: await convertToModelMessages(this.messages),
       canvasState,
+      env: { TAVILY_API_KEY: this.env.TAVILY_API_KEY },
     });
     return result.toUIMessageStreamResponse();
   }
