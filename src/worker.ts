@@ -6,13 +6,16 @@ export { DesignAgent };
 interface Env {
   DesignAgent: DurableObjectNamespace;
   OPENAI_API_KEY: string;
+  ASSETS: Fetcher;
 }
 
 export default {
   async fetch(request: Request, env: Env) {
-    return (
-      (await routeAgentRequest(request, env)) ||
-      new Response("Not found", { status: 404 })
-    );
+    const agentResponse = await routeAgentRequest(request, env);
+    if (agentResponse) {
+      return agentResponse;
+    }
+
+    return env.ASSETS.fetch(request);
   },
 } satisfies ExportedHandler<Env>;
