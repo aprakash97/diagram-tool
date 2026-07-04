@@ -33,7 +33,7 @@ export function streamAgent({
   system = SYSTEM_PROMPT,
   maxSteps = 5,
   canvasState,
-  env
+  env,
 }: AgentArgs) {
   return streamText({
     model,

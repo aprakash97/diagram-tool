@@ -1,11 +1,14 @@
 import { AIChatAgent } from "@cloudflare/ai-chat";
 import { convertToModelMessages, UIMessage } from "ai";
 import { createOpenAI } from "@ai-sdk/openai";
-interface ENV {
+import { streamAgent } from "./agent-core";
+
+interface ENV extends Cloudflare.Env {
   OPEN_AI_KEY: string;
   TAVILY_API_KEY: string;
+  UPSTASH_VECTOR_REST_URL: string;
+  UPSTASH_VECTOR_REST_TOKEN: string;
 }
-import { streamAgent } from "./agent-core";
 
 type CanvasStatePart = {
   type: "data-canvas-state";
@@ -28,7 +31,11 @@ export class DesignAgent extends AIChatAgent<ENV> {
       model: openai("gpt-5.4-mini"),
       messages: await convertToModelMessages(this.messages),
       canvasState,
-      env: { TAVILY_API_KEY: this.env.TAVILY_API_KEY },
+      env: {
+        TAVILY_API_KEY: this.env.TAVILY_API_KEY,
+        UPSTASH_VECTOR_REST_TOKEN: this.env.UPSTASH_VECTOR_REST_TOKEN,
+        UPSTASH_VECTOR_REST_URL: this.env.UPSTASH_VECTOR_REST_URL,
+      },
     });
     return result.toUIMessageStreamResponse();
   }
