@@ -71,4 +71,4 @@ export default defineConfig([
   },
 ])
 ```
-## deploy
+## deploy v2
