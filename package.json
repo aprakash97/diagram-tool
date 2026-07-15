@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "agent": "node scripts/test-agent.mjs",
     "eval": "dotenv -e .env -- braintrust eval evals/diagram.eval.ts",
-    "embed": "dotenv -e .env -- tsx src/rag/embed.ts"
+    "embed": "dotenv -e .env -- tsx src/rag/embed.ts",
+    "deploy": "wrangler deploy"
   },
   "dependencies": {
     "@ai-sdk/openai": "^3.0.73",
