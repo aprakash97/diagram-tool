@@ -118,7 +118,3 @@ This project was built to help developers learn technical concepts through AI-ge
 - User authentication
 - Diagram history
 - Export as PNG/SVG/PDF
-
-## 📄 License
-
-MIT
