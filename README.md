@@ -1,74 +1,124 @@
-# React + TypeScript + Vite
+# Diagram Tool - AI Diagram Generator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An AI-powered web application that transforms technical concepts into clear, interactive diagrams. Simply describe a programming or software engineering topic, and the application generates visual diagrams to make complex ideas easier to understand.
 
-Currently, two official plugins are available:
+## ✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- AI-generated diagrams from natural language prompts
+- Visualize software architecture and technical concepts
+- Fast, responsive interface
+- Clean and intuitive user experience
+- Powered by Cloudflare Workers for edge computing
 
-## React Compiler
+## 🚀 Live Demo
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+https://ai-design-tool.prakashakrakr.workers.dev/
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 📸 Screenshots
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+<img width="1920" height="946" alt="screencapture-ai-design-tool-prakashakrakr-workers-dev-2026-07-28-00_19_45" src="https://github.com/user-attachments/assets/c1d92047-1dc5-475e-a373-bb59f8c09724" />
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 🛠️ Tech Stack
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Frontend
+- React
+- TypeScript
+- Tailwind CSS
+
+### Backend
+- Cloudflare Workers
+- OpenAI API
+
+## 🧠 Example Prompts
+
+- JavaScript Event Loop
+- OAuth Authentication Flow
+
+## 📦 Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/yourusername/your-repository.git
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Install dependencies:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
-## deploy
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+Open:
+
+```
+http://localhost:3000
+```
+
+## 🔧 Environment Variables
+
+Create a `.env.local` file:
+
+```env
+OPENAI_API_KEY=your_openai_api_key
+UPSTASH_VECTOR_REST_URL=your_upstash_vector_rest_url
+UPSTASH_VECTOR_REST_TOKEN=your_upstash_vector_rest_token
+```
+
+If deploying to Cloudflare Workers, configure your secrets using Wrangler:
+
+```bash
+npx wrangler secret put OPENAI_API_KEY
+```
+
+## 🏗️ Build
+
+```bash
+npm run build
+```
+
+## 🚀 Deployment
+
+This project is deployed using **Cloudflare Workers**.
+
+Deploy with:
+
+```bash
+npm run deploy
+```
+
+or
+
+```bash
+npx wrangler deploy
+```
+
+## 📁 Project Structure
+
+```
+app/              # Next.js App Router
+components/       # UI components
+lib/              # Utility functions
+public/           # Static assets
+worker/           # Cloudflare Worker
+```
+
+## 🎯 Purpose
+
+This project was built to help developers learn technical concepts through AI-generated visual diagrams, making abstract ideas easier to understand than text alone.
+
+## 🔮 Future Improvements
+
+- User authentication
+- Diagram history
+- Export as PNG/SVG/PDF
+
+## 📄 License
+
+MIT
