@@ -99,16 +99,6 @@ or
 npx wrangler deploy
 ```
 
-## 📁 Project Structure
-
-```
-app/              # Next.js App Router
-components/       # UI components
-lib/              # Utility functions
-public/           # Static assets
-worker/           # Cloudflare Worker
-```
-
 ## 🎯 Purpose
 
 This project was built to help developers learn technical concepts through AI-generated visual diagrams, making abstract ideas easier to understand than text alone.
